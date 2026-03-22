@@ -25,10 +25,10 @@ public class SendEmailEventConsumer {
 
     @KafkaListener(topics = "sendEmail" ,groupId = "emailServiceConsumerGroup")
     public void handleSendEmailEvent(String message) throws JsonProcessingException {
-        //SendEmailEventDTO event = objectMapper.readValue(message, SendEmailEventDTO.class);
-        String to = "sagar.bhivsane2021@gmail.com";
-        String body = "hello from sagarB";
-        String subject = "Testing the notification service ";
+        SendEmailEventDTO event = objectMapper.readValue(message, SendEmailEventDTO.class);
+        String to = event.getToEmail();
+        String body = event.getBody();
+        String subject = event.getSubject();
 
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com"); //SMTP Host
